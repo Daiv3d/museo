@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museo Nacional de la Revolución</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ESTILOS DE INTERACTIVIDAD */
+        .slide { display: none; width: 100%; height: 500px; background-size: cover; background-position: center; transition: opacity 0.5s ease-in-out; }
+        .slide.active { display: block; }
+
+        .accordion-content { display: none; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .accordion-content.active { display: block; }
+        
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn 0.5s; }
+
+        .lightbox { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column; }
+        .lightbox-content { max-width: 80%; max-height: 80%; border: 3px solid white; }
+        .lightbox-close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; cursor: pointer; }
+
+        .scroll-to-top { display: none; position: fixed; bottom: 20px; right: 20px; z-index: 99; cursor: pointer; padding: 15px; border-radius: 50%; background: #333; color: white; border: none; }
+        
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+
+        /* ESTILOS REDES SOCIALES (FONDO BLANCO CON BORDES) */
+        .social-icons { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
+        .social-icon { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 10px; 
+            padding: 10px 20px; 
+            background: #ffffff; 
+            color: #333; 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.9rem; 
+            border-width: 2px; 
+            border-style: solid; 
+            border-radius: 8px; 
+            transition: 0.3s;
+        }
+        .social-icon:nth-child(1) { border-color: #1877f2; } /* Facebook */
+        .social-icon:nth-child(2) { border-color: #e4405f; } /* Instagram */
+        .social-icon:nth-child(3) { border-color: #000000; } /* X */
+        .social-logo { width: 20px; height: 20px; object-fit: contain; }
+        .social-icon:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+
+        /* Responsividad del Menú */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; width: 100%; position: absolute; top: 100%; left: 0; background: #fff; z-index: 10; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+            .nav-menu.active { display: block; }
+            .nav-menu ul { flex-direction: column; padding: 20px; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>MUSEO NACIONAL DE LA REVOLUCIÓN</h1>
+                <p>Plaza de la República • Martes a Domingo 10:00-18:00 • Entrada general $85</p>
+            </div>
+            
+           
+                
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#conoce">Conoce</a></li>
+                    <li><a href="#salas">Salas</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#visitante">Visitante</a></li>
+                    <li><a href="#galeria">Galería</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" style="position: relative; overflow: hidden; height: 500px;">
+        <video autoplay muted loop playsinline id="heroVideo" 
+               style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 1; transform: translate(-50%, -50%); object-fit: cover;">
+            <source src="dron_monumento.mp4" type="video/mp4">
+            Tu navegador no soporta videos.
+        </video>
+
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 2;"></div>
+        
+        <div class="hero-content" style="position: relative; z-index: 3;">
+            <h2>MONUMENTO A LA REVOLUCIÓN</h2>
+            <p>Icono arquitectónico de la Ciudad de México</p>
+            <a href="#conoce" class="btn-hero">Conoce más</a>
+        </div>
+    </section>
+
+    <section id="conoce" class="section">
+        <div class="container">
+            <h2 class="section-title">CONOCE EL MUSEO</h2>
+            <div class="grid-2">
+                <div class="info-card">
+    <img src="museo_fuera.jpg" 
+         alt="Museo Nacional de la Revolución" 
+         class="info-img" 
+         id="img-rotativa"
+         onerror="this.src='https://via.placeholder.com/600x400?text=Monumento+a+la+Revolución'">
+</div>
+                <div class="info-content">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Historia</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content active">
+                            <p>El Museo Nacional de la Revolución se encuentra ubicado en el emblemático Monumento a la Revolución, construido originalmente para ser el Palacio Legislativo durante el Porfiriato.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Objetivo</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Preservar y difundir la memoria histórica de la Revolución Mexicana, mostrando objetos, documentos y testimonios de este importante periodo.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Arquitectura</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>El monumento combina estilos art déco y realismo socialista, con una estructura de acero recubierta de cobre y cantera.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Ubicación</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Plaza de la República S/N, Tabacalera, Cuauhtémoc, 06030 Ciudad de México</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="salas" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">SALAS DEL MUSEO</h2>
+            
+            <div class="salas-filter">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="revolucion">Revolución</button>
+                <button class="filter-btn" data-filter="estado">Estado</button>
+            </div>
+            
+           <div class="grid-3" id="salasGrid">
+    <a href="sala1.html" class="sala-card" data-category="estado" 
+       style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('boceto.jpg'); background-size: cover; background-position: center; color: #fff;">
+        <div class="sala-number">01</div>
+        <p style="color: white;">Museo de sitio</p>
+        <div class="sala-tooltip">Conoce la historia del edificio y su transformación</div>
+    </a>
+
+    <a href="sala2.html" class="sala-card" data-category="estado" 
+       style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('consolidacion.jpg'); background-size: cover; background-position: center; color: #fff;">
+        <div class="sala-number">02</div>
+        <p style="color: white;">Consolidación del Estado</p>
+        <div class="sala-tooltip">El proceso de consolidación del Estado mexicano</div>
+    </a>
+
+    <a href="sala3.html" class="sala-card" data-category="revolucion" 
+       style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('democracia.jpg'); background-size: cover; background-position: center; color: #fff;">
+        <div class="sala-number">03</div>
+        <p style="color: white;">Revolución democrática</p>
+        <div class="sala-tooltip">Los ideales democráticos de la Revolución</div>
+    </a>
+
+    <a href="sala4.html" class="sala-card" data-category="revolucion" 
+       style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('constituciones.JPG'); background-size: cover; background-position: center; color: #fff;">
+        <div class="sala-number">04</div>
+        <p style="color: white;">Revolución constitucionalista</p>
+        <div class="sala-tooltip">El movimiento constitucionalista y sus logros</div>
+    </a>
+
+    <a href="sala5.html" class="sala-card" data-category="revolucion" 
+       style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('revolucion.jpg'); background-size: cover; background-position: center; color: #fff;">
+        <div class="sala-number">05</div>
+        <p style="color: white;">Revolución popular</p>
+        <div class="sala-tooltip">La participación popular en la Revolución</div>
+    </a>
+
+    <a href="sala6.html" class="sala-card" data-category="estado" 
+       style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('constitucion.JPG'); background-size: cover; background-position: center; color: #fff;">
+        <div class="sala-number">06</div>
+        <p style="color: white;">Guerra civil y Constitución</p>
+        <div class="sala-tooltip">La Constitución de 1917 y sus antecedentes</div>
+    </a>
+
+    <a href="sala7.html" class="sala-card" data-category="estado"
+       style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('monedas.jfif'); background-size: cover; background-position: center; color: #fff;">
+        <div class="sala-number">07</div>
+        <p style="color: white;">Bases del nuevo Estado</p>
+        <div class="sala-tooltip">Las bases del México posrevolucionario</div>
+    </a>
+
+    <a href="sala8.html" class="sala-card" data-category="estado"
+       style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('cardenas.jpg'); background-size: cover; background-position: center; color: #fff;">
+        <div class="sala-number">08</div>
+        <p style="color: white;">Cardenismo</p>
+        <div class="sala-tooltip">El periodo cardenista y sus reformas</div>
+    </a>
+</div>
+    </section>
+
+    <section id="servicios" class="section">
+        <div class="container">
+            <h2 class="section-title">SERVICIOS</h2>
+            <div class="grid-4">
+                <div class="servicio-item">
+                    <i class="fas fa-users icon"></i>
+                    <h3>Visitas guiadas</h3>
+                    <p class="servicio-desc">Recorridos especializados</p>
+                </div>
+                <div class="servicio-item">
+                    <i class="fas fa-tv icon"></i>
+                    <h3>Pantallas interactivas</h3>
+                    <p class="servicio-desc">Experiencia multimedia</p>
+                </div>
+                <div class="servicio-item">
+                    <i class="fas fa-wheelchair icon"></i>
+                    <h3>Accesibilidad</h3>
+                    <p class="servicio-desc">Instalaciones accesibles</p>
+                </div>
+                <div class="servicio-item">
+                    <i class="fas fa-hands icon"></i>
+                    <h3>Lenguaje de señas</h3>
+                    <p class="servicio-desc">Intérpretes disponibles</p>
+                </div>
+                <div class="servicio-item">
+                    <i class="fas fa-cube icon"></i>
+                    <h3>Experiencia táctil</h3>
+                    <p class="servicio-desc">Réplicas para tocar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="visitante" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">INFORMACIÓN AL VISITANTE</h2>
+            
+            <div class="tabs-container">
+                
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="horarios">Horarios y Costos</button>
+                    <button class="tab-btn" data-tab="llegar">Cómo Llegar</button>
+                    <button class="tab-btn" data-tab="contacto-tab">Contacto</button>
+                </div>
+                
+                <div class="tabs-content">
+                    <div class="tab-panel active" id="horarios">
+                        <div class="grid-3">
+                            <div class="visitante-card">
+                                <i class="fas fa-clock icon-large"></i>
+                                <h3>Horarios</h3>
+                                <p>Martes a Domingo: 10:00 - 18:00 hrs</p>
+                                <p>Lunes: Cerrado</p>
+                            </div>
+                            <div class="visitante-card">
+                                <i class="fas fa-ticket-alt icon-large"></i>
+                                <h3>Costos</h3>
+                                <p>Entrada general: $85</p>
+                                <p>Domingo: Entrada libre</p>
+                            </div>
+                            <div class="visitante-card">
+                                <i class="fas fa-id-card icon-large"></i>
+                                <h3>Descuentos</h3>
+                                <p>Estudiantes, maestros e INAPAM: 50%</p>
+                                <p>Menores de 12 años: Entrada libre</p>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 40px; padding-bottom: 20px;">
+    <a href="boletos.html" class="btn-reservar">
+        <i class="fas fa-ticket-alt"></i> Reservar boleto
+    </a>
+</div>
+                    </div>
+                    
+                    
+                    <div class="tab-panel" id="llegar">
+    <div class="grid-2">
+        <div class="visitante-card">
+            <i class="fas fa-map-marker-alt icon-large"></i>
+            <h3>Cómo llegar</h3>
+            <p>Pl. de la República s/n, Tabacalera, Cuauhtémoc, 06030 Ciudad de México</p>
+            <p>Metrobús: Línea 1 (Revolución)</p>
+            <p>Autobús: Rutas 2, 76, 28</p>
+        </div>
+
+        <div class="map-container" style="width: 100%; height: 350px; overflow: hidden; border-radius: 8px;">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.483188849405!2d-99.1571447239556!3d19.43577384027732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f8d43890259b%3A0xc3f18e19e7284f1b!2sMuseo%20Nacional%20de%20la%20Revoluci%C3%B3n!5e0!3m2!1ses-419!2smx!4v1714245000000!5m2!1ses-419!2smx" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="contacto-tab">
+                        <div class="visitante-card">
+                            <i class="fas fa-phone-alt icon-large"></i>
+                            <h3>Contacto</h3>
+                            <p>Tel: +52 55 5592 20388</p>
+                            
+                            <a href="https://mexicocity.cdmx.gob.mx/venues/monument-to-the-revolution/?lang=es" target="_blank">Más información</a>
+                            <p>WhatsApp: 55-9876-5432</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="section">
+        <div class="container">
+            <h2 class="section-title">GALERÍA MULTIMEDIA</h2>
+            
+            <div class="galeria-filter">
+                <button class="filter-btn active" data-filter-gallery="all">Todo</button>
+                <button class="filter-btn" data-filter-gallery="fotos">Fotografías</button>
+                <button class="filter-btn" data-filter-gallery="videos">Videos</button>
+                
+            </div>
+            
+            <div class="galeria-item" data-category-gallery="fotos" data-lightbox="true" 
+     data-album="historico.jfif,imagen_oficial.jfif,imagen_oficial2.jfif,imagen_oficial3.jfif">
+    
+    <img src="historico.jfif" alt="Fotografía histórica">
+    
+    <div class="galeria-overlay">
+        <i class="fas fa-images"></i> </div>
+    <p>Fotografías históricas </p>
+</div>
+   <div class="galeria-item" data-category-gallery="fotos" data-lightbox="true" 
+     data-album="cons_oficial2.jfif,bandera_oficial2.jfif,bandera_oficial3.jfif,dinero_oficial.jfif,libro_oficial.jfif,imagen_oficial2.jfif">
+    
+    <img src="cons_oficial2.jfif" alt="Documentos originales">
+    
+    <div class="galeria-overlay">
+        <i class="fas fa-images"></i> </div>
+    <p>Documentos y Objetos Originales</p>
+</div>
+               <div class="galeria-item" data-category-gallery="videos" data-lightbox="true">
+    <video width="100%" height="200" id="video-source">
+        <source src="video_recopilacion.mp4" type="video/mp4">
+    </video>
+    <div class="galeria-overlay">
+        <i class="fas fa-play-circle"></i>
+    </div>
+    <p>Videos explicativos</p>
+</div>
+                
+                <section class="section" style="background-color: #f9f9f9; padding: 60px 0;">
+    <div class="container" style="text-align: center;">
+        <h2 class="section-title">LÍNEA DE TIEMPO INTERACTIVA</h2>
+        <p style="margin-bottom: 30px; color: #666;">Revive los sucesos que marcaron la historia de México</p>
+        
+        <div id="openTimeline" class="timeline-preview-card" style="cursor:pointer; border: 2px solid #B87333; padding: 40px; border-radius: 15px; background: #fff; max-width: 600px; margin: 0 auto; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+            <i class="fas fa-history" style="font-size: 4rem; color: #B87333; margin-bottom: 20px;"></i>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 15px;">Explorar Cronología Completa</h3>
+            <p>Haz clic aquí para abrir la línea del tiempo detallada de la Revolución Mexicana.</p>
+            <span style="display: inline-block; margin-top: 20px; padding: 10px 25px; background: #B87333; color: white; border-radius: 5px; font-weight: bold;">ABRIR LÍNEA DE TIEMPO</span>
+        </div>
+    </div>
+</section>
+
+<div id="timelineModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; overflow-y:auto; padding: 20px;">
+    
+    <div class="modal-content" style="background:white; max-width:1200px; margin: 20px auto; border-radius: 15px; position:relative; padding: 40px 20px;">
+        
+        <span id="closeTimeline" style="position:absolute; top:15px; right:30px; font-size:45px; cursor:pointer; color:#333; line-height: 1;">&times;</span>
+
+        <div class="timeline-container">
+            <div class="timeline-wrapper">
+                <div class="timeline-header" style="text-align: center; margin-bottom: 50px;">
+                    <h1 class="timeline-title" style="font-family: 'Playfair Display', serif; font-size: 3rem; position: relative; display: inline-block;">
+                        Línea de Tiempo
+                        <div class="title-underline" style="height: 4px; width: 80px; background: #B87333; margin: 10px auto;"></div>
+                    </h1>
+                    <p class="timeline-subtitle" style="font-size: 1.2rem; color: #666;">Revolución Mexicana</p>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-events">
+                        
+                        <div class="timeline-event" data-color="#8B7355">
+                            <div class="event-row">
+                                <div class="event-content left">
+                                    <div class="event-card">
+                                        <div class="event-top-line"></div>
+                                        <div class="event-period">1876 – 1911</div>
+                                        <h3 class="event-title">Museo de sitio</h3>
+                                        <p class="event-description">Los antecedentes y la historia del edificio original.</p>
+                                        <div class="event-details">
+                                            <p>El Museo Nacional de la Revolución se encuentra en el emblemático Monumento a la Revolución, construido originalmente para ser el Palacio Legislativo durante el Porfiriato.</p>
+                                        </div>
+                                        <div class="event-toggle">
+                                            <span class="toggle-text">Ver más</span>
+                                            <svg class="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:15px;"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-dot-wrapper"><div class="event-dot"></div></div>
+                                <div class="event-spacer"></div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-color="#B87333">
+                            <div class="event-row reverse">
+                                <div class="event-content right">
+                                    <div class="event-card">
+                                        <div class="event-top-line"></div>
+                                        <div class="event-period">1910 – 1913</div>
+                                        <h3 class="event-title">Revolución democrática</h3>
+                                        <p class="event-description">El inicio del movimiento armado e ideales de Madero.</p>
+                                        <div class="event-details">
+                                            <p>Francisco I. Madero lideró la lucha democrática contra la dictadura de Porfirio Díaz, promoviendo ideales de sufragio efectivo y no reelección.</p>
+                                        </div>
+                                        <div class="event-toggle">
+                                            <span class="toggle-text">Ver más</span>
+                                            <svg class="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:15px;"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-dot-wrapper"><div class="event-dot"></div></div>
+                                <div class="event-spacer"></div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-color="#6B8E23">
+                            <div class="event-row">
+                                <div class="event-content left">
+                                    <div class="event-card">
+                                        <div class="event-top-line"></div>
+                                        <div class="event-period">1913 – 1914</div>
+                                        <h3 class="event-title">Revolución constitucionalista</h3>
+                                        <p class="event-description">La lucha por restaurar el orden legal del país.</p>
+                                        <div class="event-details">
+                                            <p>Venustiano Carranza encabezó el movimiento constitucionalista para derrocar al régimen de Victoriano Huerta y restaurar el orden constitucional.</p>
+                                        </div>
+                                        <div class="event-toggle">
+                                            <span class="toggle-text">Ver más</span>
+                                            <svg class="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:15px;"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-dot-wrapper"><div class="event-dot"></div></div>
+                                <div class="event-spacer"></div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-color="#E2725B">
+                            <div class="event-row reverse">
+                                <div class="event-content right">
+                                    <div class="event-card">
+                                        <div class="event-top-line"></div>
+                                        <div class="event-period">1914 – 1917</div>
+                                        <h3 class="event-title">Revolución popular / Guerra civil</h3>
+                                        <p class="event-description">Etapa de mayor conflicto y la Constitución de 1917.</p>
+                                        <div class="event-details">
+                                            <p>Periodo de intensa lucha revolucionaria que culminó con la promulgación de la Constitución Política de 1917, una de las más avanzadas de su época.</p>
+                                        </div>
+                                        <div class="event-toggle">
+                                            <span class="toggle-text">Ver más</span>
+                                            <svg class="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:15px;"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-dot-wrapper"><div class="event-dot"></div></div>
+                                <div class="event-spacer"></div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-color="#9CA986">
+                            <div class="event-row">
+                                <div class="event-content left">
+                                    <div class="event-card">
+                                        <div class="event-top-line"></div>
+                                        <div class="event-period">1917 – 1924</div>
+                                        <h3 class="event-title">Bases del nuevo Estado</h3>
+                                        <p class="event-description">El México posrevolucionario.</p>
+                                        <div class="event-details">
+                                            <p>Se establecieron las instituciones fundamentales del nuevo Estado mexicano, con reformas educativas, agrarias y laborales.</p>
+                                        </div>
+                                        <div class="event-toggle">
+                                            <span class="toggle-text">Ver más</span>
+                                            <svg class="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:15px;"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-dot-wrapper"><div class="event-dot"></div></div>
+                                <div class="event-spacer"></div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-color="#800020">
+                            <div class="event-row reverse">
+                                <div class="event-content right">
+                                    <div class="event-card">
+                                        <div class="event-top-line"></div>
+                                        <div class="event-period">1924 – 1934</div>
+                                        <h3 class="event-title">Consolidación del Estado</h3>
+                                        <p class="event-description">Institucionalización y pacificación nacional.</p>
+                                        <div class="event-details">
+                                            <p>Periodo de consolidación institucional donde se fortaleció el gobierno central y se pacificó el país tras años de conflicto armado.</p>
+                                        </div>
+                                        <div class="event-toggle">
+                                            <span class="toggle-text">Ver más</span>
+                                            <svg class="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:15px;"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-dot-wrapper"><div class="event-dot"></div></div>
+                                <div class="event-spacer"></div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-color="#8B7355">
+                            <div class="event-row">
+                                <div class="event-content left">
+                                    <div class="event-card">
+                                        <div class="event-top-line"></div>
+                                        <div class="event-period">1934 – 1940</div>
+                                        <h3 class="event-title">Cardenismo</h3>
+                                        <p class="event-description">Reformas sociales y expropiación petrolera.</p>
+                                        <div class="event-details">
+                                            <p>El presidente Lázaro Cárdenas implementó profundas reformas sociales, incluyendo la reforma agraria y la expropiación petrolera de 1938.</p>
+                                        </div>
+                                        <div class="event-toggle">
+                                            <span class="toggle-text">Ver más</span>
+                                            <svg class="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:15px;"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-dot-wrapper"><div class="event-dot"></div></div>
+                                <div class="event-spacer"></div>
+                            </div>
+                        </div>
+
+                    </div> </div> <div class="timeline-footer" style="text-align: center; margin-top: 40px; color: #666;">
+                    <p>Fin del recorrido histórico</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <section id="contacto" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">CONTACTO Y REDES</h2>
+            <div class="grid-2">
+                <div class="contacto-info">
+                    <h3>Información de contacto</h3>
+                    <p><i class="fas fa-phone"></i> Teléfono: 55-1234-5678</p>
+                    <p><i class="fas fa-envelope"></i> info@museorevolucion.gob.mx</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Plaza de la República S/N</p>
+                    
+                    <h3>Redes sociales</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/monrevmex/" target="_blank" class="social-icon">
+                            <img src="face.png" alt="Facebook" class="social-logo"> Facebook
+                        </a>
+                        <a href="https://www.instagram.com/monumentoalarevolucion/" target="_blank" class="social-icon">
+                            <img src="instagram.png" alt="Instagram" class="social-logo"> Instagram
+                        </a>
+                        <a href="https://x.com/museorevolucion" target="_blank" class="social-icon">
+                            <img src="x.png" alt="X" class="social-logo"> X 
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contacto-form">
+                    <h3>Formulario de contacto</h3>
+                    <form id="contactForm">
+                        <input type="text" id="nombre" placeholder="Nombre completo" required>
+                        <input type="email" id="email" placeholder="Correo electrónico" required>
+                        <select id="asunto" required>
+                            <option value="">Asunto</option>
+                            <option value="visita">Información de visita</option>
+                            <option value="evento">Eventos</option>
+                            <option value="escolar">Visita escolar</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <textarea id="mensaje" placeholder="Mensaje" rows="4" required></textarea>
+                        <button type="submit">Enviar mensaje</button>
+                    </form>
+                    <div class="form-message" id="formMessage"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 Museo Nacional de la Revolución. Todos los derechos reservados.</p>
+                <p>Plaza de la República S/N, Tabacalera, Cuauhtémoc, 06030 Ciudad de México</p>
+            </div>
+        </div>
+    </footer>
+
+   <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="closeLightbox">×</span>
+    
+    <button id="prevBtn" style="position:absolute; left:20px; font-size:2rem; color:white; background:none; border:none; cursor:pointer;">&#10094;</button>
+    
+    <img class="lightbox-content" id="lightboxImg">
+    <video class="lightbox-content" id="lightboxVid" controls style="display:none;"></video>
+    
+    <button id="nextBtn" style="position:absolute; right:20px; font-size:2rem; color:white; background:none; border:none; cursor:pointer;">&#10095;</button>
+    
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. MENU HAMBURGUESA
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        if(menuToggle && navMenu) {
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // 2. CARRUSEL HERO
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            if(slides.length === 0) return;
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            currentSlide = (index + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            if(dots[currentSlide]) dots[currentSlide].classList.add('active');
+        }
+
+        if(nextBtn) nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+        if(prevBtn) prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+        
+        if(slides.length > 0) {
+            setInterval(() => showSlide(currentSlide + 1), 6000);
+        }
+
+        // 3. ACORDEÓN (Historia, Objetivo, etc.)
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const isOpen = content.classList.contains('active');
+                document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));
+                if(!isOpen) content.classList.add('active');
+            });
+        });
+
+        // 4. FILTRO DE SALAS
+        const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
+        const salaCards = document.querySelectorAll('.sala-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+                salaCards.forEach(card => {
+                    card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'block' : 'none';
+                });
+            });
+        });
+
+        // 5. TABS
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabPanels.forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                const target = btn.getAttribute('data-tab');
+                const panel = document.getElementById(target);
+                if(panel) panel.classList.add('active');
+            });
+        });
+
+        // 6. GALERÍA FILTRO Y LIGHTBOX (Corregido para Álbum de Fotos y Video)
+        const galleryFilterBtns = document.querySelectorAll('.filter-btn[data-filter-gallery]');
+        const galleryItems = document.querySelectorAll('.galeria-item');
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightboxImg');
+        const lbVid = document.getElementById('lightboxVid');
+        const lbCaption = document.getElementById('lightboxCaption');
+        const closeLightbox = document.getElementById('closeLightbox');
+        const btnPrev = document.getElementById('prevBtn');
+        const btnNext = document.getElementById('nextBtn');
+
+        let imagenesAlbum = [];
+        let indiceAlbum = 0;
+
+        galleryFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                galleryFilterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter-gallery');
+                galleryItems.forEach(item => {
+                    item.style.display = (filter === 'all' || item.getAttribute('data-category-gallery') === filter) ? 'block' : 'none';
+                });
+            });
+        });
+
+        galleryItems.forEach(item => {
+            if(item.dataset.lightbox === "true") {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const video = item.querySelector('video');
+                    const albumData = item.getAttribute('data-album');
+
+                    lbImg.style.display = 'none';
+                    lbVid.style.display = 'none';
+                    if(btnPrev) btnPrev.style.display = 'none';
+                    if(btnNext) btnNext.style.display = 'none';
+                    imagenesAlbum = [];
+
+                    if (albumData) {
+                        imagenesAlbum = albumData.split(',');
+                        indiceAlbum = 0;
+                        lbImg.src = imagenesAlbum[indiceAlbum];
+                        lbImg.style.display = 'block';
+                        if(btnPrev) btnPrev.style.display = 'block';
+                        if(btnNext) btnNext.style.display = 'block';
+                    } else if(img) {
+                        lbImg.src = img.src;
+                        lbImg.style.display = 'block';
+                    } else if(video) {
+                        lbVid.src = video.querySelector('source').src;
+                        lbVid.style.display = 'block';
+                        lbVid.play();
+                    }
+
+                    if(lbCaption) lbCaption.textContent = item.querySelector('p').textContent;
+                    lightbox.style.display = 'flex';
+                });
+            }
+        });
+
+        if(btnNext) {
+            btnNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (imagenesAlbum.length > 0) {
+                    indiceAlbum = (indiceAlbum + 1) % imagenesAlbum.length;
+                    lbImg.src = imagenesAlbum[indiceAlbum];
+                }
+            });
+        }
+
+        if(btnPrev) {
+            btnPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (imagenesAlbum.length > 0) {
+                    indiceAlbum = (indiceAlbum - 1 + imagenesAlbum.length) % imagenesAlbum.length;
+                    lbImg.src = imagenesAlbum[indiceAlbum];
+                }
+            });
+        }
+
+        if(closeLightbox) {
+            closeLightbox.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+                lbVid.pause();
+                lbVid.src = "";
+            });
+        }
+
+        // 7. SCROLL TO TOP
+        const scrollBtn = document.getElementById('scrollToTop');
+        if(scrollBtn) {
+            window.addEventListener('scroll', () => {
+                scrollBtn.style.display = (window.pageYOffset > 400) ? 'block' : 'none';
+            });
+            scrollBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // 8. FORMULARIO DE CONTACTO
+        const contactForm = document.getElementById('contactForm');
+        if(contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formMsg = document.getElementById('formMessage');
+                if(formMsg) {
+                    formMsg.textContent = "¡Mensaje enviado con éxito!";
+                    formMsg.style.color = "green";
+                    contactForm.reset();
+                    setTimeout(() => formMsg.textContent = "", 5000);
+                }
+            });
+        }
+
+        // 9. BÚSQUEDA
+        const searchInput = document.getElementById('searchInput');
+        if(searchInput) {
+            searchInput.addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') {
+                    alert('Buscando: ' + searchInput.value);
+                }
+            });
+        }
+
+        // 10. ROTACIÓN DE IMAGEN (Info Card)
+        const imgRotativa = document.getElementById('img-rotativa');
+        if(imgRotativa) {
+            const fotos = ["museo_fuera.jpg", "antigua.jpg", "noche.jpg"];
+            let fotoIndex = 0;
+            setInterval(() => {
+                imgRotativa.style.opacity = '0';
+                setTimeout(() => {
+                    fotoIndex = (fotoIndex + 1) % fotos.length;
+                    imgRotativa.src = fotos[fotoIndex];
+                    imgRotativa.style.opacity = '1';
+                }, 500);
+            }, 4000);
+        }
+
+        // 11. CONTROL DE APERTURA DE LA MODAL DE LÍNEA DE TIEMPO
+        const openTimeline = document.getElementById('openTimeline');
+        const timelineModal = document.getElementById('timelineModal');
+        const closeTimeline = document.getElementById('closeTimeline');
+
+        if(openTimeline && timelineModal) {
+            openTimeline.addEventListener('click', () => {
+                timelineModal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; 
+            });
+        }
+
+        if(closeTimeline) {
+            closeTimeline.addEventListener('click', () => {
+                timelineModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+
+        // 12. LÓGICA INTERNA DE LAS TARJETAS DE LA LÍNEA DE TIEMPO
+        const timelineEvents = document.querySelectorAll('.timeline-event');
+        timelineEvents.forEach(event => {
+            const card = event.querySelector('.event-card');
+            const toggleText = event.querySelector('.toggle-text');
+            const color = event.getAttribute('data-color');
+
+            if(card) {
+                const topLine = event.querySelector('.event-top-line');
+                if(topLine) topLine.style.backgroundColor = color;
+
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isActive = card.classList.contains('active');
+                    
+                    document.querySelectorAll('.event-card').forEach(c => {
+                        c.classList.remove('active');
+                        const t = c.querySelector('.toggle-text');
+                        if(t) t.textContent = 'Ver más';
+                    });
+
+                    if(!isActive) {
+                        card.classList.add('active');
+                        if(toggleText) toggleText.textContent = 'Ocultar detalles';
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

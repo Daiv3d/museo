@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" class="sala-7">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala 7 - Las bases del nuevo Estado | Museo Nacional de la Revolución</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body class="sala-7">
+    <!-- BOTÓN DE SALIR FLOTANTE -->
+    
+
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>MUSEO NACIONAL DE LA REVOLUCIÓN</h1>
+                <p>Sala 7 - Las bases del nuevo Estado (1917-1924)</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="museo.html">
+                        <i class="fas fa-home"></i> Inicio
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="sala-hero">
+        <div class="sala-hero-content">
+            <h2>SALA 7</h2>
+            <p>Las bases del nuevo Estado</p>
+            <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">1917 - 1924</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="sala-content">
+                <h2 class="section-title">Las bases del nuevo Estado</h2>
+                
+                <div class="sala-descripcion">
+                    <p>Con el fin de las grandes batallas, México se enfrentó al reto más complejo: la reconstrucción de una nación devastada. Esta sala explora cómo el Estado posrevolucionario sentó sus bases de modernidad a través de la creación de instituciones sólidas y un proyecto nacional que buscó transformar las demandas sociales en políticas públicas permanentes.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-university" style="color: var(--color-copper); margin-right: 10px;"></i>Institucionalización</h3>
+                        <p>Tras la era de los caudillos, llegó la era de las instituciones. Este bloque analiza la creación de pilares fundamentales como la Secretaría de Educación Pública (SEP) y el Banco de México, organismos que permitieron al país transitar hacia una gobernabilidad civil y técnica.</p>
+                    </div>
+                    
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-palette" style="color: var(--color-copper); margin-right: 10px;"></i>Reconstrucción e identidad nacional</h3>
+                        <p>La reconstrucción no fue solo de puentes y presas, sino de almas. Explora la efervescencia de un México que redescubrió sus raíces a través del arte y la enseñanza rural. En esta sección, cada nueva aula construida en el rincón más alejado del país dirigido hacia la consolidación de una patria que finalmente aprendía a caminar hacia el futuro.</p>
+                    </div>
+                </div>
+
+                <div class="sala-galeria">
+                    <h3><i class="fas fa-images" style="color: var(--color-copper); margin-right: 12px;"></i>Galería de la Sala</h3>
+                    <div class="grid-3">
+                        <div style="text-align: center;">
+                            <img src="sala7.1.png" alt="Creación de instituciones">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Creación de instituciones</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="sala7.2.png" alt="Educación pública">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Educación pública</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="sala7.3.png" alt="Identidad nacional">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Identidad nacional</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sala-nav-buttons">
+                    <a href="sala6.html" class="btn-sala-back">
+                        <i class="fas fa-arrow-left"></i> Sala Anterior
+                    </a>
+                    <a href="sala8.html" class="btn-sala-next">
+                        Siguiente sala <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Museo Nacional de la Revolución. Todos los derechos reservados.</p>
+                <p>Plaza de la República S/N, Tabacalera, Cuauhtémoc, 06030 Ciudad de México</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if(menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

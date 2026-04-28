@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Boletos - Museo Nacional de la Revolución</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos específicos para armonizar la página de boletos con museo.html */
+        body.boletos-page {
+            background-color: var(--color-gray-light);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .ticket-card {
+            background: var(--color-light);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            border-top: 6px solid var(--color-accent);
+        }
+
+        .ticket-card h2 {
+            font-family: var(--font-display);
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 2rem;
+        }
+
+        .ticket-card .subtitle {
+            text-align: center;
+            color: var(--color-accent);
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        .info-summary {
+            background-color: #fcf8f3;
+            border-left: 4px solid var(--color-copper);
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+
+        .info-summary p {
+            margin: 5px 0;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: var(--color-secondary);
+            font-size: 0.9rem;
+        }
+
+        .input-group input, .input-group select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 2px rgba(139, 115, 85, 0.2);
+        }
+
+        /* Selector de boletos con +/- */
+        .qty-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--color-gray-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .qty-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .qty-btn {
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .qty-btn:hover {
+            background: var(--color-copper);
+        }
+
+        #num-boletos {
+            font-weight: bold;
+            font-size: 1.2rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .price-total {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+        }
+
+        .price-total span {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+
+        .btn-submit {
+            background-color: var(--color-accent);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--color-copper);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer-link a {
+            color: var(--color-gray-medium);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .footer-link a:hover {
+            color: var(--color-accent);
+        }
+    </style>
+</head>
+<body class="boletos-page">
+
+    <div class="ticket-card">
+        <h2>Boletos</h2>
+        <p class="subtitle">Reserva de Entrada</p>
+
+        <div class="info-summary">
+            <p><strong>Costo:</strong> $85.00 MXN (General)</p>
+            <p><strong>Ubicación:</strong> Plaza de la República S/N</p>
+        </div>
+
+        <form id="form-reservacion" class="form-section">
+            <div class="input-group">
+                <label for="fecha-visita">Selecciona el día de tu visita:</label>
+                <input type="date" id="fecha-visita" name="fecha" required>
+            </div>
+
+            
+
+            <div class="qty-container">
+                <div class="qty-row">
+                    <span>Boletos generales</span>
+                    <div class="qty-controls">
+                        <button type="button" class="qty-btn" id="btn-menos">-</button>
+                        <span id="num-boletos">1</span>
+                        <button type="button" class="qty-btn" id="btn-mas">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="user-email">Correo electrónico:</label>
+                <input type="email" id="user-email" name="user_email" placeholder="correo@ejemplo.com" required>
+            </div>
+
+            <div class="price-total">
+                <p>Total a pagar:</p>
+                <span id="total-display">$85.00 MXN</span>
+            </div>
+
+            <button type="submit" class="btn-submit">Reservar Boleto</button>
+        </form>
+
+        <div class="footer-link">
+            <a href="museo.html"><i class="fas fa-arrow-left"></i> Volver al sitio principal</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        // Inicialización de EmailJS
+        (function() {
+            // Reemplaza con tu Public Key de EmailJS
+            emailjs.init("Sa5WlYmlkNemehfWy");
+        })();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnMas = document.getElementById('btn-mas');
+            const btnMenos = document.getElementById('btn-menos');
+            const numBoletos = document.getElementById('num-boletos');
+            const totalDisplay = document.getElementById('total-display');
+            const form = document.getElementById('form-reservacion');
+            
+            let cantidad = 1;
+            const precioUnitario = 85;
+
+            // Función para actualizar los totales visualmente
+            function actualizarTotal() {
+                const total = cantidad * precioUnitario;
+                numBoletos.innerText = cantidad;
+                totalDisplay.innerText = `$${total}.00 MXN`;
+            }
+
+            // Evento para sumar boletos
+            btnMas.addEventListener('click', () => {
+                if(cantidad < 10) {
+                    cantidad++;
+                    actualizarTotal();
+                }
+            });
+
+            // Evento para restar boletos
+            btnMenos.addEventListener('click', () => {
+                if(cantidad > 1) {
+                    cantidad--;
+                    actualizarTotal();
+                }
+            });
+
+            // Lógica principal de envío de formulario e integración con EmailJS
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const email = document.getElementById('user-email').value;
+                const fecha = document.getElementById('fecha-visita').value;
+                const btnSubmit = e.target.querySelector('.btn-submit');
+
+                // Feedback visual: Cambiamos el estado del botón
+                btnSubmit.innerText = "Enviando comprobante...";
+                btnSubmit.disabled = true;
+                btnSubmit.style.opacity = "0.6";
+
+                // Parámetros para la plantilla de EmailJS
+                const templateParams = {
+                    user_email:email,
+                    fecha: fecha,
+                    cantidad: cantidad,
+                    total: cantidad * precioUnitario
+                };
+
+                // Envío del correo real a través de EmailJS
+                // El primer ID es el de tu Gmail conectado, el segundo es el de tu diseño de correo
+                emailjs.send('service_huka6l5', 'template_ozu88wg', templateParams)
+                    .then(function(response) {
+                        // Simulación de espera para feedback de usuario
+                        setTimeout(() => {
+                            alert(`¡Reserva confirmada!\n\nSe ha enviado el comprobante al correo: ${email}`);
+                            // Redirección automática al inicio después del éxito
+                            window.location.href = 'museo.html';
+                        }, 500);
+                    }, function(error) {
+                        alert("Error al enviar el comprobante: " + JSON.stringify(error));
+                        btnSubmit.innerText = "Reservar Boleto";
+                        btnSubmit.disabled = false;
+                        btnSubmit.style.opacity = "1";
+                    });
+            });
+
+            // Restricción: No se pueden seleccionar fechas pasadas
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('fecha-visita').setAttribute('min', today);
+        });
+    </script>
+</body>
+</html>

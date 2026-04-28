@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" class="sala-2">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala 2 - Consolidación del Estado | Museo Nacional de la Revolución</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body class="sala-2">
+    <!-- BOTÓN DE SALIR FLOTANTE -->
+    <a href="museo.html" class="btn-exit-sala">
+        <i class="fas fa-times-circle"></i> SALIR
+    </a>
+
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>MUSEO NACIONAL DE LA REVOLUCIÓN</h1>
+                <p>Sala 2 - Consolidación del Estado (1924-1934)</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="museo.html">
+                        <i class="fas fa-home"></i> Inicio
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="sala-hero">
+        <div class="sala-hero-content">
+            <h2>SALA 2</h2>
+            <p>Consolidación del Estado</p>
+            <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">1924 - 1934</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="sala-content">
+                <h2 class="section-title">Consolidación del Estado Mexicano</h2>
+                
+                <div class="sala-descripcion">
+                    <p>Consumada la Independencia, México se enfrentó al reto de construir una nación desde los escombros del virreinato. Esta sala explora las décadas de aprendizaje político donde se definieron las leyes e instituciones que hoy nos dan identidad.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-flag" style="color: #800020; margin-right: 10px;"></i>Hacia un Proyecto de Nación</h3>
+                        <p>Tras siglos de dominio español, el país buscó con urgencia una estructura propia. Entre gobiernos efímeros y crisis económicas, se gestaron los primeros esfuerzos por pacificar el territorio y unificar a una población diversa bajo un mismo ideal de patria.</p>
+                    </div>
+                    
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-balance-scale" style="color: #800020; margin-right: 10px;"></i>Leyes, Armas y Territorio</h3>
+                        <p>Descubre la pugna por el corazón del poder: ¿quién debía mandar y desde dónde? Analiza cómo los debates legislativos y la resistencia civil ante las potencias del mundo terminaron por consolidar la estructura del Estado mexicano.</p>
+                    </div>
+                </div>
+
+                <div class="sala-galeria">
+                    <h3><i class="fas fa-images" style="color: #800020; margin-right: 12px;"></i>Galería de la Sala</h3>
+                    <div class="grid-3">
+                        <div style="text-align: center;">
+                            <img src="sala2.1.png" alt="Instituciones del nuevo Estado">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Instituciones del nuevo Estado</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="sala2.2.png" alt="Pacificación nacional">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Pacificación nacional</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="sala2.3.png" alt="Consolidación política">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Consolidación política</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sala-nav-buttons">
+                    <a href="sala1.html" class="btn-sala-back">
+                        <i class="fas fa-arrow-left"></i> Sala Anterior
+                    </a>
+                    <a href="sala3.html" class="btn-sala-next">
+                        Siguiente sala <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Museo Nacional de la Revolución. Todos los derechos reservados.</p>
+                <p>Plaza de la República S/N, Tabacalera, Cuauhtémoc, 06030 Ciudad de México</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if(menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

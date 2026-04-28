@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" class="sala-1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala 1 - Museo de Sitio | Museo Nacional de la Revolución</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body class="sala-1">
+    <!-- BOTÓN DE SALIR FLOTANTE -->
+    <a href="museo-1.html" class="btn-exit-sala">
+        <i class="fas fa-times-circle"></i> SALIR
+    </a>
+
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>MUSEO NACIONAL DE LA REVOLUCIÓN</h1>
+                <p>Sala 1 - Museo de Sitio (1876-1911)</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="museo-1.html">
+                        <i class="fas fa-home"></i> Inicio
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="sala-hero">
+        <div class="sala-hero-content">
+            <h2>SALA 1</h2>
+            <p>Museo de Sitio</p>
+            <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">1876 - 1911</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="sala-content">
+                <h2 class="section-title">Museo de Sitio</h2>
+                
+                <div class="sala-descripcion">
+                    <p>Esta sala presenta la historia y arquitectura del Monumento a la Revolución, desde su concepción original como Palacio Legislativo durante el Porfiriato hasta su transformación en el emblemático monumento que conocemos hoy.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-landmark" style="color: var(--color-copper); margin-right: 10px;"></i>Historia del Edificio</h3>
+                        <p>El proyecto original fue diseñado por el arquitecto francés Émile Bénard en 1897 para ser el Palacio Legislativo. La obra quedó inconclusa debido a la Revolución Mexicana, dejando una estructura de acero que más tarde se convertiría en símbolo de transformación nacional.</p>
+                    </div>
+                    
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-tools" style="color: var(--color-copper); margin-right: 10px;"></i>Transformación</h3>
+                        <p>En 1933, el arquitecto Carlos Obregón Santacilia propuso transformar la estructura en un monumento conmemorativo de la Revolución Mexicana. La obra se inauguró en 1938, convirtiéndose en un ícono arquitectónico de la Ciudad de México.</p>
+                    </div>
+                </div>
+
+                <div class="sala-galeria">
+    <h3><i class="fas fa-images"></i> Galería de la Sala</h3>
+  <div class="galeria-especial">
+    <div class="foto-item">
+        <img src="sala1.1.png" alt="Boceto original">
+        <p>Boceto original</p>
+    </div>
+
+    <div class="foto-item">
+        <img src="sala1.3.jpeg" alt="Monumento terminado">
+        <p>Monumento terminado</p>
+    </div>
+
+    <div class="foto-item item-centrado">
+        <img src="sala1.2.jpeg" alt="Construcción del monumento">
+        <p>Construcción del monumento</p>
+    </div>
+</div>
+                </div>
+
+                <div class="sala-nav-buttons">
+                    <a href="museo.html" class="btn-sala-back">
+                        <i class="fas fa-home"></i> Volver al inicio
+                    </a>
+                    <a href="sala2.html" class="btn-sala-next">
+                        Siguiente sala <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Museo Nacional de la Revolución. Todos los derechos reservados.</p>
+                <p>Plaza de la República S/N, Tabacalera, Cuauhtémoc, 06030 Ciudad de México</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if(menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

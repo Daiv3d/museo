@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" class="sala-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala 6 - La guerra civil y la Constitución | Museo Nacional de la Revolución</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body class="sala-6">
+    <!-- BOTÓN DE SALIR FLOTANTE -->
+    
+
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>MUSEO NACIONAL DE LA REVOLUCIÓN</h1>
+                <p>Sala 6 - La guerra civil y la Constitución (1914-1917)</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="museo.html">
+                        <i class="fas fa-home"></i> Inicio
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="sala-hero">
+        <div class="sala-hero-content">
+            <h2>SALA 6</h2>
+            <p>La guerra civil y la Constitución</p>
+            <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">1914 - 1917</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="sala-content">
+                <h2 class="section-title">La guerra civil y la Constitución</h2>
+                
+                <div class="sala-descripcion">
+                    <p>Tras la derrota del huertismo, la Revolución se fragmentó en una dolorosa guerra civil entre las facciones triunfantes. Esta sala examina el proceso de pacificación a través de las leyes, culminando en el Congreso Constituyente de Querétaro, donde se redactó la carta magna más avanzada de su tiempo.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-gavel" style="color: #9CA986; margin-right: 10px;"></i>La Ruptura y la Soberana Convención</h3>
+                        <p>El desacuerdo entre carrancistas, villistas y zapatistas llevó a la histórica Convención de Aguascalientes. Aquí se analizan los intentos fallidos de conciliación que derivaron en el periodo más sangriento de la lucha armada, obligando a los líderes a buscar una salida política definitiva para la nación.</p>
+                    </div>
+                    
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-book-open" style="color: #9CA986; margin-right: 10px;"></i>La Constitución de 1917</h3>
+                        <p>En 1917, el Teatro de la República en Querétaro fue testigo del nacimiento de un nuevo orden. Este bloque destaca los artículos 3º, 27º y 123º, los cuales integraron por primera vez los derechos sociales, la soberanía sobre los recursos naturales y la protección al trabajador en el corazón de la Constitución.</p>
+                    </div>
+                </div>
+
+                <div class="sala-galeria">
+                    <h3><i class="fas fa-images" style="color: #9CA986; margin-right: 12px;"></i>Galería de la Sala</h3>
+                    <div class="grid-3">
+                        <div style="text-align: center;">
+                            <img src="sala6.1.png" alt="Convención de Aguascalientes">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Convención de Aguascalientes</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="sala6.2.png" alt="Congreso Constituyente">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Congreso Constituyente</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="sala6.3.png" alt="Constitución de 1917">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Constitución de 1917</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sala-nav-buttons">
+                    <a href="sala5.html" class="btn-sala-back">
+                        <i class="fas fa-arrow-left"></i> Sala Anterior
+                    </a>
+                    <a href="sala7.html" class="btn-sala-next">
+                        Siguiente sala <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Museo Nacional de la Revolución. Todos los derechos reservados.</p>
+                <p>Plaza de la República S/N, Tabacalera, Cuauhtémoc, 06030 Ciudad de México</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if(menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

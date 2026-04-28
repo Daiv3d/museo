@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es" class="sala-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala 8 - El cardenismo | Museo Nacional de la Revolución</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body class="sala-8">
+    
+
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>MUSEO NACIONAL DE LA REVOLUCIÓN</h1>
+                <p>Sala 8 - El cardenismo (1934-1940)</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="museo.html">
+                        <i class="fas fa-home"></i> Inicio
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="sala-hero">
+        <div class="sala-hero-content">
+            <h2>SALA 8</h2>
+            <p>El cardenismo</p>
+            <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">1934 - 1940</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="sala-content">
+                <h2 class="section-title">El cardenismo</h2>
+                
+                <div class="sala-descripcion">
+                    <p>La presidencia de Lázaro Cárdenas (1934-1940) marcó el cumplimiento definitivo de las promesas de la Revolución. En esta sala final, se analiza cómo el Estado mexicano logró su madurez política al poner los recursos de la nación y la tenencia de la tierra al servicio del pueblo, cerrando así un ciclo de lucha para dar paso a un México moderno y soberano.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-oil-can" style="color: var(--color-olive); margin-right: 10px;"></i>La Expropiación Petrolera</h3>
+                        <p>La expropiación petrolera de 1938 no fue solo un acto económico, sino el mayor símbolo de dignidad nacional del siglo XX. Este bloque detalla el momento en que México recuperó el control de sus recursos energéticos, fortaleciendo la economía interna y unificando a todos los sectores de la sociedad en una causa común de resistencia y orgullo nacional.</p>
+                    </div>
+                    
+                    <div class="sala-info-block">
+                        <h3><i class="fas fa-graduation-cap" style="color: var(--color-olive); margin-right: 10px;"></i>Reforma Agraria y Educación</h3>
+                        <p>Bajo el lema de 'educar para transformar', el cardenismo llevó el saber a las fábricas y el arado a los campos. Descubre cómo la creación de escuelas técnicas y el reparto de millones de hectáreas devolvieron la esperanza a una generación, transformando el sacrificio de los revolucionarios en un futuro lleno de oportunidades para sus hijos.</p>
+                    </div>
+                </div>
+
+                <div class="sala-galeria">
+                    <h3><i class="fas fa-images" style="color: var(--color-olive); margin-right: 12px;"></i>Galería de la Sala</h3>
+                    <div class="grid-3">
+                        <div style="text-align: center;">
+                            <img src="sala8.1.png" alt="Lázaro Cárdenas">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Lázaro Cárdenas</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="sala8.2.png" alt="Expropiación petrolera">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Expropiación petrolera</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="sala8.3.png" alt="Reforma agraria">
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--color-gray-medium);">Reforma agraria</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sala-nav-buttons">
+                    <a href="sala7.html" class="btn-sala-back">
+                        <i class="fas fa-arrow-left"></i> Sala Anterior
+                    </a>
+                    <a href="museo.html" class="btn-sala-next">
+                        Finalizar recorrido <i class="fas fa-home"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Museo Nacional de la Revolución. Todos los derechos reservados.</p>
+                <p>Plaza de la República S/N, Tabacalera, Cuauhtémoc, 06030 Ciudad de México</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if(menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
