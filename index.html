@@ -937,52 +937,46 @@
     });
     </script>
 
-   <!-- ========== GOOGLE TRANSLATE - VERSIÓN FINAL ULTRA-ROBUSTA ========== -->
-<script type="text/javascript">
-    // 1. Inicialización del Widget
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'es',
-            includedLanguages: 'en,es,ja',
-            autoDisplay: false,
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-    }
-
-    // 2. Función de cambio de idioma con reintentos automáticos
-    function changeLanguage(langCode) {
-        // Intentamos localizar el select de Google
-        const googleSelect = document.querySelector('.goog-te-combo');
-        
-        if (googleSelect) {
-            // Si existe, cambiamos el idioma
-            googleSelect.value = langCode;
-            googleSelect.dispatchEvent(new Event('change'));
-            updateActiveButton(langCode);
-        } else {
-            // Si no existe (aún cargando), esperamos 500ms y reintentamos
-            console.warn("Widget de Google cargando... reintentando en 0.5s");
-            setTimeout(function() {
-                changeLanguage(langCode);
-            }, 500);
+<!-- ========== GOOGLE TRANSLATE - REPARACIÓN DEFINITIVA ========== -->
+    <script type="text/javascript">
+        // 1. Inicialización con parámetros globales
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'en,es,ja',
+                autoDisplay: false,
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
         }
-    }
 
-    // 3. Actualización visual de los botones
-    function updateActiveButton(langCode) {
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        
-        const map = { 'es': 'btn-es', 'en': 'btn-en', 'ja': 'btn-jp' };
-        const activeId = map[langCode];
-        
-        if (activeId && document.getElementById(activeId)) {
-            document.getElementById(activeId).classList.add('active');
+        // 2. Función de traducción mejorada
+        function changeLanguage(langCode) {
+            // Buscamos el elemento que Google genera dinámicamente
+            var selectField = document.querySelector("select.goog-te-combo");
+            
+            if (selectField) {
+                selectField.value = langCode;
+                selectField.dispatchEvent(new Event('change')); // Disparar el evento de cambio
+                updateActiveButton(langCode);
+            } else {
+                // Si no existe, es que Google aún no carga. Reintentamos con un log para debug
+                console.log("Motor de Google no detectado, reintentando...");
+                setTimeout(function() {
+                    changeLanguage(langCode);
+                }, 1000);
+            }
         }
-    }
-</script>
 
-<!-- Carga del script externo con protocolo HTTPS explícito -->
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-</body>
+        function updateActiveButton(langCode) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const idMap = { 'es': 'btn-es', 'en': 'btn-en', 'ja': 'btn-jp' };
+            const activeBtn = document.getElementById(idMap[langCode]);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+    </script>
+    
+    <!-- CARGA CRÍTICA: Usar HTTPS explícito y cargar al final -->
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        </body>
 </html>
 
