@@ -6,54 +6,40 @@
     <title>Museo Nacional de la Revolución</title>
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        /* ESTILOS DE INTERACTIVIDAD */
-        .slide { display: none; width: 100%; height: 500px; background-size: cover; background-position: center; transition: opacity 0.5s ease-in-out; }
-        .slide.active { display: block; }
-
-        .accordion-content { display: none; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .accordion-content.active { display: block; }
-        
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; animation: fadeIn 0.5s; }
-
-        .lightbox { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column; }
-        .lightbox-content { max-width: 80%; max-height: 80%; border: 3px solid white; }
-        .lightbox-close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; cursor: pointer; }
-
-        .scroll-to-top { display: none; position: fixed; bottom: 20px; right: 20px; z-index: 99; cursor: pointer; padding: 15px; border-radius: 50%; background: #333; color: white; border: none; }
-        
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-
-        /* ESTILOS REDES SOCIALES (FONDO BLANCO CON BORDES) */
-        .social-icons { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
-        .social-icon { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 10px; 
-            padding: 10px 20px; 
-            background: #ffffff; 
-            color: #333; 
-            text-decoration: none; 
-            font-weight: 500; 
-            font-size: 0.9rem; 
-            border-width: 2px; 
-            border-style: solid; 
-            border-radius: 8px; 
-            transition: 0.3s;
+        /* Estilos específicos para los botones de idioma */
+        .lang-container {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
         }
-        .social-icon:nth-child(1) { border-color: #1877f2; } /* Facebook */
-        .social-icon:nth-child(2) { border-color: #e4405f; } /* Instagram */
-        .social-icon:nth-child(3) { border-color: #000000; } /* X */
-        .social-logo { width: 20px; height: 20px; object-fit: contain; }
-        .social-icon:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.5);
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: #B87333; /* Color cobre de tu diseño */
+            border-color: #B87333;
+            color: white;
+        }
 
-        /* Responsividad del Menú */
-        @media (max-width: 768px) {
-            .nav-menu { display: none; width: 100%; position: absolute; top: 100%; left: 0; background: #fff; z-index: 10; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-            .nav-menu.active { display: block; }
-            .nav-menu ul { flex-direction: column; padding: 20px; }
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; }
+        /* Ocultar elementos visuales de Google que ensucian el diseño */
+        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon {
+            display: none !important;
+        }
+        body {
+            top: 0px !important;
+        }
+        .skiptranslate iframe {
+            display: none !important;
         }
     </style>
 </head>
@@ -62,10 +48,19 @@
         <div class="header-container">
             <div class="logo">
                 <h1>MUSEO NACIONAL DE LA REVOLUCIÓN</h1>
-                <p>Plaza de la República • Martes a Domingo 10:00-18:00 • Entrada general $85</p>
+                <p>Plaza de la República • Martes a Domingo 10:00-18:00 • $85</p>
             </div>
             
-           
+            <div class="header-actions">
+                <div class="lang-container">
+                    <!-- Botones con IDs específicos para la lógica JS -->
+                    <button onclick="changeLanguage('es')" class="lang-btn active" id="btn-es">ES</button>
+                    <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en">EN</button>
+                    <button onclick="changeLanguage('ja')" class="lang-btn" id="btn-jp">JP</button>
+                </div>
+                
+                <!-- El widget real de Google permanece oculto -->
+                <div id="google_translate_element" style="display:none;"></div>
                 
                 <button class="menu-toggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
@@ -601,22 +596,25 @@
                 </div>
                 
                 <div class="contacto-form">
-                    <h3>Formulario de contacto</h3>
-                    <form id="contactForm">
-                        <input type="text" id="nombre" placeholder="Nombre completo" required>
-                        <input type="email" id="email" placeholder="Correo electrónico" required>
-                        <select id="asunto" required>
-                            <option value="">Asunto</option>
-                            <option value="visita">Información de visita</option>
-                            <option value="evento">Eventos</option>
-                            <option value="escolar">Visita escolar</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                        <textarea id="mensaje" placeholder="Mensaje" rows="4" required></textarea>
-                        <button type="submit">Enviar mensaje</button>
-                    </form>
-                    <div class="form-message" id="formMessage"></div>
-                </div>
+    <div class="contacto-form">
+    <h3>Formulario de contacto</h3>
+    <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+        <input type="hidden" name="access_key" value="75c776a8-1e20-4aa0-b494-59b1e1f8eb53">
+        <input type="text" id="nombre" name="name" placeholder="Nombre completo" required>
+        <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+        <select id="asunto" name="subject" required>
+            <option value="">Asunto</option>
+            <option value="visita">Información de visita</option>
+            <option value="evento">Eventos</option>
+            <option value="escolar">Visita escolar</option>
+            <option value="otro">Otro</option>
+        </select>
+        <textarea id="mensaje" name="message" placeholder="Mensaje" rows="4" required></textarea>
+        <input type="hidden" name="_captcha" value="false">
+        <button type="submit">Enviar mensaje</button>
+    </form>
+    <div class="form-message" id="formMessage"></div>
+</div>
             </div>
         </div>
     </section>
@@ -647,6 +645,7 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <!-- ========== SCRIPTS PRINCIPALES ========== -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // 1. MENU HAMBURGUESA
@@ -721,7 +720,7 @@
             });
         });
 
-        // 6. GALERÍA FILTRO Y LIGHTBOX (Corregido para Álbum de Fotos y Video)
+        // 6. GALERÍA FILTRO Y LIGHTBOX
         const galleryFilterBtns = document.querySelectorAll('.filter-btn[data-filter-gallery]');
         const galleryItems = document.querySelectorAll('.galeria-item');
         const lightbox = document.getElementById('lightbox');
@@ -822,16 +821,44 @@
 
         // 8. FORMULARIO DE CONTACTO
         const contactForm = document.getElementById('contactForm');
+        const formMsg = document.getElementById('formMessage');
+        
         if(contactForm) {
-            contactForm.addEventListener('submit', (e) => {
+            contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const formMsg = document.getElementById('formMessage');
-                if(formMsg) {
-                    formMsg.textContent = "¡Mensaje enviado con éxito!";
-                    formMsg.style.color = "green";
-                    contactForm.reset();
+
+                const formData = new FormData(contactForm);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                formMsg.textContent = "Enviando...";
+                formMsg.style.color = "orange";
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                .then(async (response) => {
+                    if (response.status == 200) {
+                        formMsg.textContent = "¡Mensaje enviado con éxito!";
+                        formMsg.style.color = "green";
+                        contactForm.reset();
+                    } else {
+                        formMsg.textContent = "Hubo un error al enviar.";
+                        formMsg.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    formMsg.textContent = "Algo salió mal. Inténtalo de nuevo.";
+                    formMsg.style.color = "red";
+                })
+                .finally(() => {
                     setTimeout(() => formMsg.textContent = "", 5000);
-                }
+                });
             });
         }
 
@@ -845,7 +872,7 @@
             });
         }
 
-        // 10. ROTACIÓN DE IMAGEN (Info Card)
+        // 10. ROTACIÓN DE IMAGEN
         const imgRotativa = document.getElementById('img-rotativa');
         if(imgRotativa) {
             const fotos = ["museo_fuera.jpg", "antigua.jpg", "noche.jpg"];
@@ -860,7 +887,7 @@
             }, 4000);
         }
 
-        // 11. CONTROL DE APERTURA DE LA MODAL DE LÍNEA DE TIEMPO
+        // 11. CONTROL DE LA MODAL DE LÍNEA DE TIEMPO
         const openTimeline = document.getElementById('openTimeline');
         const timelineModal = document.getElementById('timelineModal');
         const closeTimeline = document.getElementById('closeTimeline');
@@ -908,6 +935,50 @@
             }
         });
     });
-</script>
+    </script>
+
+    <!-- ========== GOOGLE TRANSLATE - API GRATUITA (CORREGIDO) ========== -->
+    <script type="text/javascript">
+        // 1. Inicialización estándar del widget
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'en,es,ja',
+                autoDisplay: false,
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        // 2. Lógica para disparar la traducción desde tus botones personalizados
+        function changeLanguage(langCode) {
+            const select = document.querySelector('.goog-te-combo');
+            
+            if (select) {
+                // Cambiar el valor del select oculto de Google
+                select.value = langCode;
+                // Disparar el evento para que Google procese el cambio
+                select.dispatchEvent(new Event('change'));
+                
+                // Actualizar visualmente qué botón está activo
+                updateActiveButton(langCode);
+            } else {
+                console.log("Esperando a que cargue el motor de traducción...");
+                // Si el motor no ha cargado, reintentamos en 500ms
+                setTimeout(() => changeLanguage(langCode), 500);
+            }
+        }
+
+        // 3. Función auxiliar para el estilo de los botones
+        function updateActiveButton(langCode) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if (langCode === 'es') document.getElementById('btn-es').classList.add('active');
+            else if (langCode === 'en') document.getElementById('btn-en').classList.add('active');
+            else if (langCode === 'ja') document.getElementById('btn-jp').classList.add('active');
+        }
+    </script>
+    <!-- Carga de la API de Google -->
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
+
