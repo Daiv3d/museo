@@ -937,48 +937,52 @@
     });
     </script>
 
-    <!-- ========== GOOGLE TRANSLATE - API GRATUITA (CORREGIDO) ========== -->
-    <script type="text/javascript">
-        // 1. Inicialización estándar del widget
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es',
-                includedLanguages: 'en,es,ja',
-                autoDisplay: false,
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
+   <!-- ========== GOOGLE TRANSLATE - VERSIÓN FINAL ULTRA-ROBUSTA ========== -->
+<script type="text/javascript">
+    // 1. Inicialización del Widget
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'es',
+            includedLanguages: 'en,es,ja',
+            autoDisplay: false,
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
 
-        // 2. Lógica para disparar la traducción desde tus botones personalizados
-        function changeLanguage(langCode) {
-            const select = document.querySelector('.goog-te-combo');
-            
-            if (select) {
-                // Cambiar el valor del select oculto de Google
-                select.value = langCode;
-                // Disparar el evento para que Google procese el cambio
-                select.dispatchEvent(new Event('change'));
-                
-                // Actualizar visualmente qué botón está activo
-                updateActiveButton(langCode);
-            } else {
-                console.log("Esperando a que cargue el motor de traducción...");
-                // Si el motor no ha cargado, reintentamos en 500ms
-                setTimeout(() => changeLanguage(langCode), 500);
-            }
+    // 2. Función de cambio de idioma con reintentos automáticos
+    function changeLanguage(langCode) {
+        // Intentamos localizar el select de Google
+        const googleSelect = document.querySelector('.goog-te-combo');
+        
+        if (googleSelect) {
+            // Si existe, cambiamos el idioma
+            googleSelect.value = langCode;
+            googleSelect.dispatchEvent(new Event('change'));
+            updateActiveButton(langCode);
+        } else {
+            // Si no existe (aún cargando), esperamos 500ms y reintentamos
+            console.warn("Widget de Google cargando... reintentando en 0.5s");
+            setTimeout(function() {
+                changeLanguage(langCode);
+            }, 500);
         }
+    }
 
-        // 3. Función auxiliar para el estilo de los botones
-        function updateActiveButton(langCode) {
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            
-            if (langCode === 'es') document.getElementById('btn-es').classList.add('active');
-            else if (langCode === 'en') document.getElementById('btn-en').classList.add('active');
-            else if (langCode === 'ja') document.getElementById('btn-jp').classList.add('active');
+    // 3. Actualización visual de los botones
+    function updateActiveButton(langCode) {
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        
+        const map = { 'es': 'btn-es', 'en': 'btn-en', 'ja': 'btn-jp' };
+        const activeId = map[langCode];
+        
+        if (activeId && document.getElementById(activeId)) {
+            document.getElementById(activeId).classList.add('active');
         }
-    </script>
-    <!-- Carga de la API de Google -->
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    }
+</script>
+
+<!-- Carga del script externo con protocolo HTTPS explícito -->
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
 
